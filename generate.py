@@ -4,7 +4,7 @@
 """
 import datetime
 
-import algorithm_rgb
+import algorithm_lidar
 
 # Names of empty files to create
 EMPTY_FILE_NAMES = ['requirements.txt', 'packages.txt']
@@ -14,7 +14,7 @@ DOCKERFILE_NAME = 'Dockerfile'
 
 # Template contents of the Docker build file
 DOCKERFILE_CONTENTS = [
-    'FROM agpipeline/transformer_rgb_plot:1.0',
+    'FROM agpipeline/transformer_lidar_plot:1.0',
     'LABEL maintainer="Someone <someone@example.com>"',
     '',
     'COPY requirements.txt packages.txt /home/extractor/',
@@ -43,10 +43,10 @@ DOCKERFILE_CONTENTS = [
     '',
     'USER extractor'
     '',
-    'COPY algorithm_rgb.py /home/extractor/'
+    'COPY algorithm_lidar.py /home/extractor/'
 ]
 
-# Required variables in algorithm_rgb
+# Required variables in algorithm_lidar
 REQUIRED_VARIABLES = [
     'ALGORITHM_AUTHOR',
     'ALGORITHM_AUTHOR_EMAIL',
@@ -55,12 +55,12 @@ REQUIRED_VARIABLES = [
     'VARIABLE_NAMES'
 ]
 
-# Variables in algorithm_rgb that are required to not be empty
+# Variables in algorithm_lidar that are required to not be empty
 REQUIRED_NOT_EMPTY_VARIABLES = [
     'VARIABLE_NAMES'
 ]
 
-# Variables in algorithm_rgb that should be filled in, but aren't required to be
+# Variables in algorithm_lidar that should be filled in, but aren't required to be
 PREFERRED_NOT_EMPTY_VARIABLES = [
     'ALGORITHM_AUTHOR',
     'ALGORITHM_AUTHOR_EMAIL',
@@ -80,25 +80,25 @@ def check_environment() -> bool:
     # Check for missing definitions
     bad_values = []
     for one_attr in REQUIRED_VARIABLES:
-        if not hasattr(algorithm_rgb, one_attr):
+        if not hasattr(algorithm_lidar, one_attr):
             bad_values.append(one_attr)
     if bad_values:
-        print("The following variables are not globally defined in algorithm_rgb.py: %s" % ', '.join(bad_values))
+        print("The following variables are not globally defined in algorithm_lidar.py: %s" % ', '.join(bad_values))
         print("Please add the variables and try again")
         return False
 
     # Check for empty values
     for one_attr in REQUIRED_NOT_EMPTY_VARIABLES:
-        if not getattr(algorithm_rgb, one_attr, None):
+        if not getattr(algorithm_lidar, one_attr, None):
             bad_values.append(one_attr)
     if bad_values:
-        print("The following variables are empty in algorithm_rgb.py: %s" % ', '.join(bad_values))
+        print("The following variables are empty in algorithm_lidar.py: %s" % ', '.join(bad_values))
         print("Please assign values to the variables and try again")
         return False
 
     # Warnings
     for one_attr in PREFERRED_NOT_EMPTY_VARIABLES:
-        if not hasattr(algorithm_rgb, one_attr) or not getattr(algorithm_rgb, one_attr, None):
+        if not hasattr(algorithm_lidar, one_attr) or not getattr(algorithm_lidar, one_attr, None):
             bad_values.append(one_attr)
     if bad_values:
         print("The following variables are missing or empty when it would be better to have them defined and filled in: %s" % \
@@ -127,8 +127,8 @@ def generate_files() -> int:
             out_file.write('# automatically generated: %s' % datetime.datetime.now().isoformat())
             for line in DOCKERFILE_CONTENTS:
                 if line.startswith('LABEL maintainer='):
-                    out_file.write("LABEL maintainer=\"{0} <{1}>\"\n".format(algorithm_rgb.ALGORITHM_AUTHOR,
-                                                                             algorithm_rgb.ALGORITHM_AUTHOR_EMAIL))
+                    out_file.write("LABEL maintainer=\"{0} <{1}>\"\n".format(algorithm_lidar.ALGORITHM_AUTHOR,
+                                                                             algorithm_lidar.ALGORITHM_AUTHOR_EMAIL))
                 else:
                     out_file.write("{0}\n".format(line))
     except Exception as ex:
