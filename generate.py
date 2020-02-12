@@ -14,7 +14,7 @@ DOCKERFILE_NAME = 'Dockerfile'
 
 # Template contents of the Docker build file
 DOCKERFILE_CONTENTS = [
-    'FROM agpipeline/transformer_lidar_plot:1.0',
+    'FROM agpipeline/lidar-plot-base-image:latest',
     'LABEL maintainer="Someone <someone@example.com>"',
     '',
     'COPY requirements.txt packages.txt /home/extractor/',
