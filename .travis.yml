@@ -1,0 +1,16 @@
+languae: python
+
+python:
+ - "3.7"
+
+cache: pip
+
+install:
+ - "pip install pytest"
+ - "pip install pylint"
+
+script:
+ - "git clone https://github.com/AgPipeline/Organization-info.git"
+ - "pylint --rcfile=Organization-info/pylint.rc *.py"
+ - "python -m pytest -v"
+ 
