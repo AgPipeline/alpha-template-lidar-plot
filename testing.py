@@ -70,11 +70,11 @@ def run_test(filename):
         the file is not an image file.
     """
     try:
-        open_file = gdal.Open(filename)
+        open_file = 
         if open_file:
             # Get the pixels and call the calculation
             pix = np.array(open_file.ReadAsArray())
-            calc_val = algorithm_lidar.calculate(np.rollaxis(pix, 0, 3))
+            calc_val = algorithm_lidar.calculate(pix)
 
             # Check for unsupported types
             if isinstance(calc_val, set):
