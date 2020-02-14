@@ -6,6 +6,7 @@
 import os
 import sys
 import numpy as np
+import laspy
 
 import algorithm_lidar
 
@@ -70,10 +71,10 @@ def run_test(filename):
         the file is not an image file.
     """
     try:
-        open_file = 
+        open_file = laspy.file.File(filename, mode = "r")
         if open_file:
             # Get the pixels and call the calculation
-            pix = np.array(open_file.ReadAsArray())
+            pix = np.vstack([open_file.X, open_file.Y, open_file.Z])
             calc_val = algorithm_lidar.calculate(pix)
 
             # Check for unsupported types
