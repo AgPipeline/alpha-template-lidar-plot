@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-"""Test script for algorithm_rgb code
+"""Test script for algorithm_lidar code
 """
 
 import os
 import sys
 import numpy as np
-import gdal
+import laspy
 
-import algorithm_rgb
+import algorithm_lidar
 
 
 def print_usage():
@@ -20,8 +20,8 @@ def print_usage():
     else:
         our_name = os.path.basename(__file__)
     print(our_name + " <folder>|<filename> ...")
-    print("    folder:   path to folder containing images to process")
-    print("    filename: path to an image file to process")
+    print("    folder:   path to folder containing files to process")
+    print("    filename: path to a lidar file to process")
     print("")
     print("  One or more folders and/or filenames can be used")
     print("  Only files at the top level of a folder are processed")
@@ -52,7 +52,7 @@ def check_arguments():
 def check_configuration():
     """Checks if the configuration is setup properly for testing
     """
-    if not hasattr(algorithm_rgb, 'VARIABLE_NAMES') or not algorithm_rgb.VARIABLE_NAMES:
+    if not hasattr(algorithm_lidar, 'VARIABLE_NAMES') or not algorithm_lidar.VARIABLE_NAMES:
         sys.stderr.write("Variable names configuration variable is not defined yet. Please define and try again")
         sys.stderr.write("    Update configuration.py and set VALUE_NAMES variable with your variable names")
         return False
@@ -71,11 +71,11 @@ def run_test(filename):
         the file is not an image file.
     """
     try:
-        open_file = gdal.Open(filename)
+        open_file = laspy.file.File(filename, mode = "r")
         if open_file:
             # Get the pixels and call the calculation
-            pix = np.array(open_file.ReadAsArray())
-            calc_val = algorithm_rgb.calculate(np.rollaxis(pix, 0, 3))
+            pix = np.vstack([open_file.X, open_file.Y, open_file.Z])
+            calc_val = algorithm_lidar.calculate(pix)
 
             # Check for unsupported types
             if isinstance(calc_val, set):
@@ -103,7 +103,7 @@ def process_files():
     """
     argc = len(sys.argv)
     if argc:
-        print("Filename," + algorithm_rgb.VARIABLE_NAMES)
+        print("Filename," + algorithm_lidar.VARIABLE_NAMES)
         for idx in range(1, argc):
             cur_path = sys.argv[idx]
             if not os.path.isdir(cur_path):

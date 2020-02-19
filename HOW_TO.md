@@ -1,5 +1,5 @@
 # How To Use This Template
-This document describes how to use this transformer template for your custom algorithm processing plot-level RGB data.
+This document describes how to use this transformer template for your custom algorithm processing plot-level lidar data.
 
 ## Assumptions
 It is assumed that:
@@ -10,7 +10,7 @@ It is assumed that:
 The following steps can be taken to develop your algorithm for inclusion into a processing pipeline.
 
 1. [Setup](#setup): Click the `Use this template` button in GitHub to make a copy of this repository (or run `git clone`)
-2. [Definitions](#definitions): Fill in and modify the definitions in the algorithm_rgb.py file
+2. [Definitions](#definitions): Fill in and modify the definitions in the algorithm_lidar.py file
 3. [Algorithm](#algorithm): Replace the code in the `calculate` function with your algorithm
 4. [Test](#test): Run the `testing.py` script to run your algorithm and validate the results
 5. [Generate](#generate): Run `generate.py` to create a Dockerfile
@@ -19,13 +19,13 @@ The following steps can be taken to develop your algorithm for inclusion into a 
 
 ### Setup your repo <a name="setup"/>
 The first thing to do is to create a copy of this repository has a meaningful name and that you are able to modify.
-In GitHub this is easy, browse to this [repository](https://github.com/AgPipeline/template-rgb-plot) and click the `Use this template` button.
+In GitHub this is easy, browse to this [repository](https://github.com/AgPipeline/template-lidar-plot) and click the `Use this template` button.
 You will be led through the steps necessary to create a clone in a location of your choosing.
 
 If you are not on GitHub, you will need to setup your `git` environment and clone the repository.
 
 ### Fill in your definitions <a name="definitions" />
-To fill in the needed definitions, first open the `algorithm_rgb.py` file in your favorite editor.
+To fill in the needed definitions, first open the `algorithm_lidar.py` file in your favorite editor.
 
 If you are modifying your existing code, you should consider updating the version number definition: `VERSION`.
 It's assumed that [Semantic Version numbers](https://semver.org/) will be used, but any methodology can be used.
@@ -52,7 +52,7 @@ Setting this value to `False` will suppress the generation of this file by defau
 Be sure to save your changes.
 
 ### Add your algorithm <a name="algorithm" />
-Open the `algorithm_rgb.py` file in your favorite editor, if it isn't opened already.
+Open the `algorithm_lidar.py` file in your favorite editor, if it isn't opened already.
 
 Scroll to the bottom of the file to the function named `calculate`.
 
@@ -68,7 +68,7 @@ Be sure to save your changes.
 
 ### Test your algorithm <a name="test" />
 A testing script named `testing.py` is provided for testing your algorithm.
-What isn't provided in the template repository are the plot-level RGB images to test against.
+What isn't provided in the template repository are the plot-level lidar images to test against.
 It's expected that you will either provide the images or use a standard set that can be downloaded from [Google Drive](https://drive.google.com/file/d/1xWRU0YgK3Y9aUy5TdRxj14gmjLlozGxo/view?usp=sharing).
 
 The testing script expects to have either a list of source plot image files, or a folder name, or both specified on the command line.

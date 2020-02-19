@@ -1,0 +1,18 @@
+languae: python
+
+python:
+ - "3.7"
+
+cache: pip
+
+install:
+ - "pip install pytest"
+ - "pip install pylint"
+ - "pip install requests"
+ - "pip install tqdm"
+script:
+ - "git clone https://github.com/AgPipeline/Organization-info.git"
+ - "pylint --rcfile=Organization-info/pylint.rc *.py"
+ - "python get_files_from_drive.py 1JYGTq5iUMx3PwstiiQBI3nHyioivdMvA test_files.gz"
+ - gunzip test_files.gz
+ - "python testing.py"
