@@ -6,7 +6,7 @@ import numpy as np
 
 # Definitions
 # Please replace these definition's values with the correct ones
-VERSION = '0.0.1'
+VERSION = '1.0'
 
 # Information on the creator of this algorithm
 ALGORITHM_AUTHOR = ''
